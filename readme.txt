@@ -18,3 +18,6 @@ Get familliar with Unity system.
 
 By using Unity's built-in demo FPS project, I managed to implement "somewhat" functional inventory system. Currently the weapon state is not managable as demo has its own weaponry system
 that I will try to reduce and add my own.
+
+
+# FIX FORMATTING - something IDE totally messed up while saving and committing code to Github. Shows locally as it is properly formatted, but looks horrible on Github. Investigate!
