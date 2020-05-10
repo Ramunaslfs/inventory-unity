@@ -41,7 +41,6 @@ public class Item : MonoBehaviour
         Size = ItemSize;
 		Id = ItemId;
 
-
  		// Subscribe to pickup action
         Debug.Log("Item has been created" + Name);
     }

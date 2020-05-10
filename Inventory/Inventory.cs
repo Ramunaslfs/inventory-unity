@@ -13,7 +13,7 @@ public class Inventory: MonoBehaviour
     private void start()
     {
         Debug.Log("Created inventory");
-        MaximumCapacity = 300;
+        MaximumCapacity = 100000;
     }
 
     public void AddInitialGun()
@@ -24,7 +24,7 @@ public class Inventory: MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I))
         {
             ShowInventory = !ShowInventory;
             Debug.Log("State of inventory " + ShowInventory);
@@ -50,7 +50,7 @@ public class Inventory: MonoBehaviour
             Items.ForEach(item =>
             {
                 StartingYPosition = StartingYPosition + 20;
-                GUI.TextArea(new Rect(StartingXPosition, StartingYPosition, 100, 40), item.Name, 200);
+                GUI.TextArea(new Rect(StartingXPosition, StartingYPosition, 100, 20), item.Name, 200);
             });
         }
     }
@@ -64,6 +64,25 @@ public class Inventory: MonoBehaviour
 
         Items.Add(item);
         return true;
+    }
+
+    public int FindDroppedItemIndex(int Id)
+    {
+        if (Items.Count > 0) {
+            return Items.FindIndex(item => item.Id == Id);
+        }
+
+        return -1;
+    }
+
+    public Item DropItem(int Id)
+    {
+        var index = FindDroppedItemIndex(Id);
+        Item ItemToDrop = Items.Find(item => item.Id == Id);
+        Items.RemoveAt(index);
+        Debug.Log("Dropped the item " + ItemToDrop.Name);
+
+        return ItemToDrop;
     }
 
 

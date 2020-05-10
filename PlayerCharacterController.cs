@@ -166,6 +166,46 @@ public class PlayerCharacterController : MonoBehaviour
         bool wasGrounded = isGrounded;
         GroundCheck();
 
+		if (Input.GetKeyDown(KeyCode.O)) {
+			var index = m_Inventory.FindDroppedItemIndex(2);
+			if (index >= 0) {
+				Item RemovedItem = m_Inventory.DropItem(2);
+				GameObject DroppedItem = new GameObject("Dropped Item");
+
+ 				var playerObject = GameObject.Find("Player");
+				Debug.Log("Object post" + playerObject);
+         		Transform playerTransform = playerObject.transform;
+         		Vector3 playerpos = playerTransform.position;
+				playerpos.y = 2;
+				playerpos.x = playerpos.x + 2;
+
+				Item dropped = DroppedItem.AddComponent<Item>();
+				dropped.ItemName = RemovedItem.Name;
+				dropped.ItemId = RemovedItem.Id;
+				dropped.ItemSize = RemovedItem.Size;
+				dropped.ItemDescription = RemovedItem.Description;
+				dropped.Name = RemovedItem.Name;
+				dropped.Id = RemovedItem.Id;
+				dropped.Size = RemovedItem.Size;
+				dropped.Description = RemovedItem.Description;
+
+				// Object position
+				DroppedItem.transform.position = playerpos;
+
+				// Collission
+         		BoxCollider collider = DroppedItem.AddComponent<BoxCollider>();
+				collider.size = new Vector3(3, 1, 0);
+				collider.isTrigger = true;
+ 
+				// Mesh
+         		DroppedItem.AddComponent<MeshRenderer>();
+         		var TextMeshObject = DroppedItem.AddComponent<TextMesh>();
+				TextMeshObject.text = RemovedItem.Name;
+
+       	 		Instantiate(DroppedItem);
+			}
+		}
+
         // landing
         if (isGrounded && !wasGrounded)
         {
